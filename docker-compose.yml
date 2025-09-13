@@ -1,0 +1,52 @@
+version: '3.8'
+
+services:
+  # Aplicación PHP
+  php-app:
+    build: 
+      context: .
+      dockerfile: Dockerfile
+    container_name: todo-system-app
+    restart: unless-stopped
+    ports:
+      - "8080:80"
+    volumes:
+      - C:/Users/conso/Proyectos/claseUT/todo-system:/var/www/html
+    depends_on:
+      - mysql
+    environment:
+      - APACHE_DOCUMENT_ROOT=/var/www/html
+
+  # Base de datos MySQL
+  mysql:
+    image: mysql:8.0
+    container_name: todo-system-mysql
+    restart: unless-stopped
+    ports:
+      - "3306:3306"
+    environment:
+      MYSQL_ROOT_PASSWORD: root_password_seguro
+      MYSQL_DATABASE: todo_system
+      MYSQL_USER: todo_user
+      MYSQL_PASSWORD: todo_password_seguro
+    volumes:
+      - C:/Users/conso/Proyectos/claseUT/mysql_data:/var/lib/mysql
+      # Descomentar si tienes scripts de inicialización
+      # - C:/miproyecto/todo-System/database:/docker-entrypoint-initdb.d
+
+  # phpMyAdmin (opcional)
+  phpmyadmin:
+    image: phpmyadmin/phpmyadmin
+    container_name: todo-system-phpmyadmin
+    restart: unless-stopped
+    ports:
+      - "8081:80"
+    environment:
+      PMA_HOST: mysql
+      PMA_PORT: 3306
+    depends_on:
+      - mysql
+
+# Ya no necesitamos el volumen nombrado porque usamos bind mount
+# volumes:
+#   mysql_data:
