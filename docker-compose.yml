@@ -11,7 +11,7 @@ services:
     ports:
       - "8080:80"
     volumes:
-      - C:/Users/conso/Proyectos/claseUT/todo-system:/var/www/html
+      - C:/[SU RUTA]/todo-system:/var/www/html
     depends_on:
       - mysql
     environment:
@@ -30,7 +30,7 @@ services:
       MYSQL_USER: todo_user
       MYSQL_PASSWORD: todo_password_seguro
     volumes:
-      - C:/Users/conso/Proyectos/claseUT/mysql_data:/var/lib/mysql
+      - C:/[SU RUTA]/mysql_data:/var/lib/mysql
       # Descomentar si tienes scripts de inicialización
       # - C:/miproyecto/todo-System/database:/docker-entrypoint-initdb.d
 
